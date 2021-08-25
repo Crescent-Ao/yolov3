@@ -1,6 +1,6 @@
 ### YOLOV3
 
-![structure](C:\Users\王澳\Desktop\yolo-v3\structure.jpg)
+![structure](structure.jpg)
 
 - Resunit 借助于Resnet网络中的残差结构为了使用网络训练的更深
 
@@ -14,9 +14,9 @@
 
   backbone网络的整体结构是Darknet-53,带有对应的全连接图
 
-  ![structure_2](C:\Users\王澳\Desktop\yolo-v3\structure_2.jpg)
+  ![structure_2](structure_2.jpg)
 
-![yolo-5](C:\Users\王澳\Desktop\yolo-v3\yolo-5.png)
+![yolo-5](yolo-5.png)
 
 ##### 预测公式
 
@@ -47,13 +47,13 @@ sigmoid函数强制中心坐标的值介于对应0-1之间
 
 上述doge的图像位于（6.6）sigmoid输出的限制在0-1之间，如果预测的 x,y 坐标大于 1，例如 (1.2, 0.7)，会发生什么。这意味着中心位于 (7.2, 6.7)。请注意，中心现在位于我们红色单元格右侧的单元格中，或第 7 行中的第 8 个单元格。**这打破了 YOLO 背后的理论，**因为如果我们假设红框负责预测狗，那么狗的中心必须位于红细胞中，而不是旁边的那个
 
-![yolo-regression-1](C:\Users\王澳\Desktop\yolo-v3\yolo-regression-1.png)
+![yolo-regression-1](yolo-regression-1.png)
 
 SSD和Faster RCNN中的理论大概一致，都是通过高宽和平移的变化，平移和缩放两个主要的步骤来完成的，SSD中$l_x$为对应prior_box的特征向量，对应的网络权重直接变换的，在高宽缩放上yolo系列大致与两个经典的网络一致，中心坐标的平移则是缺少对应的先验框的高宽长度，仅依赖于求出$\sigma$的线性变化来进行regression操作
 
 
 
-![ssd](C:\Users\王澳\Desktop\yolo-v3\ssd.png)
+![ssd](ssd.png)
 
 产生的预测*bw*和*bh*由图像的高度和宽度归一化。（训练标签是这样选择的）。因此，如果包含狗的盒子的预测*bx*和*by*是 (0.3, 0.8)，那么 13 x 13 特征图上的实际宽度和高度是 (13 x 0.3, 13 x 0.8)。
 
@@ -73,7 +73,7 @@ SSD和Faster RCNN中的理论大概一致，都是通过高宽和平移的变化
 
 yolo V3在三个不同的尺度上进行预测。检测图利用三种不同大小的feature map进行对应的detection
 
-![structure](C:\Users\王澳\Desktop\yolo-v3\structure.jpg)
+![structure](structure.jpg)
 
 每个feature map中单个pixel产生对应的anchor的数量为3个
 
@@ -95,7 +95,7 @@ yolo V3在三个不同的尺度上进行预测。检测图利用三种不同大�
 
 ​	NMS 方法，同样也是设定阈值，IOU的过高的anchor直接筛选掉
 
-![bbox_-2](C:\Users\王澳\Desktop\yolo-v3\bbox_-2.png)
+![bbox_-2](bbox_-2.png)
 
 ### 网络实现
 
@@ -233,7 +233,7 @@ hue=.1
 
 正如之前提到的公式，按照知乎大佬的输出,在第二个特征图中(5,4,2)代表的意思是，第二个特征图中的cy=5,cx=4,mask=2,59,119作为anchor的w和h，计算之后的b_x要乘上对应的下采样率，得到对应的真实框的x,y
 
-![yolo-regression-1](C:\Users\王澳\Desktop\yolo-v3\yolo-regression-1.png)
+![yolo-regression-1](yolo-regression-1.png)
 
 回到网络主体中，由于anchor由size是相当于对应的原始图像，所以在前向传播过程中也需要将size进行下采样
 
@@ -326,7 +326,7 @@ else:
 
 #### 预训练的部分
 
-![](C:\Users\王澳\Desktop\yolo-v3\pre_trained.png)
+![](pre_trained.png)
 
 权重只属于两张参数，BN层和CONV层,权重的存储在上面已经体现好了
 
@@ -408,7 +408,7 @@ idx = image_pred_class.size(0)   #Number of detections
 
 
 
-![](C:\Users\王澳\Desktop\yolo-v3\nms.png)
+![](nms.png)
 
 上面的figure 是nms的主要过程也能够
 
